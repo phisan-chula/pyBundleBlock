@@ -55,29 +55,36 @@ Reading YAML "Block_62_63_6TP_TLE2020.yml" ...</br>
 </table>
 
 ====================== Reidual ===============================</br>
---Photo--------Point-----vx_mm----vy_mm-----vx_px----vy_px---</br>
-p62_15       20301       0.0002  -0.0004      0.0     -0.0</br>
-p62_15       20401       0.0007   0.0012      0.0      0.1</br>
-p62_15       30301       0.0002   0.0031      0.0      0.2</br>
-p62_15       30401       0.0019  -0.0006      0.1     -0.0</br>
-p62_15       40401      -0.0035   0.0021     -0.2      0.1</br>
-p62_15       40501       0.0006  -0.0017      0.0     -0.1</br>
-p62_15       t1         -0.0000   0.0014     -0.0      0.1</br>
-p62_15       t2          0.0000  -0.0014      0.0     -0.1</br>
-p62_15       t3          0.0000  -0.0011      0.0     -0.1</br>
-p62_15       t4          0.0001  -0.0024      0.0     -0.2</br>
-p62_15       t5          0.0000  -0.0015      0.0     -0.1</br>
-p62_15       t6         -0.0000   0.0012     -0.0      0.1</br>
-p63_15       20301      -0.0008  -0.0006     -0.1     -0.0</br>
-p63_15       20401      -0.0026  -0.0004     -0.2     -0.0</br>
-p63_15       30301       0.0044  -0.0017      0.3     -0.1</br>
-p63_15       30401       0.0021  -0.0025      0.1     -0.2</br>
-p63_15       40401      -0.0030   0.0048     -0.2      0.3</br>
-p63_15       40501       0.0001  -0.0034      0.0     -0.2</br>
-p63_15       t1          0.0000  -0.0014      0.0     -0.1</br>
-p63_15       t2         -0.0000   0.0014     -0.0      0.1</br>
-p63_15       t3         -0.0000   0.0011     -0.0      0.1</br>
-p63_15       t4         -0.0001   0.0024     -0.0      0.2</br>
-p63_15       t5         -0.0000   0.0015     -0.0      0.1</br>
-p63_15       t6          0.0000  -0.0012      0.0     -0.1</br>
+<table>
+<thead>
+<tr><th>Photo  </th><th>Point  </th><th style="text-align: right;">  vx_mm</th><th style="text-align: right;">  vy_mm</th><th style="text-align: right;">  vx_px</th><th style="text-align: right;">  vy_px</th></tr>
+</thead>
+<tbody>
+<tr><td>p62_15 </td><td>20301  </td><td style="text-align: right;"> 0.0002</td><td style="text-align: right;">-0.0004</td><td style="text-align: right;">    0  </td><td style="text-align: right;">   -0  </td></tr>
+<tr><td>p62_15 </td><td>20401  </td><td style="text-align: right;"> 0.0007</td><td style="text-align: right;"> 0.0012</td><td style="text-align: right;">    0  </td><td style="text-align: right;">    0.1</td></tr>
+<tr><td>p62_15 </td><td>30301  </td><td style="text-align: right;"> 0.0002</td><td style="text-align: right;"> 0.0031</td><td style="text-align: right;">    0  </td><td style="text-align: right;">    0.2</td></tr>
+<tr><td>p62_15 </td><td>30401  </td><td style="text-align: right;"> 0.0019</td><td style="text-align: right;">-0.0006</td><td style="text-align: right;">    0.1</td><td style="text-align: right;">   -0  </td></tr>
+<tr><td>p62_15 </td><td>40401  </td><td style="text-align: right;">-0.0035</td><td style="text-align: right;"> 0.0021</td><td style="text-align: right;">   -0.2</td><td style="text-align: right;">    0.1</td></tr>
+<tr><td>p62_15 </td><td>40501  </td><td style="text-align: right;"> 0.0006</td><td style="text-align: right;">-0.0017</td><td style="text-align: right;">    0  </td><td style="text-align: right;">   -0.1</td></tr>
+<tr><td>p62_15 </td><td>t1     </td><td style="text-align: right;">-0     </td><td style="text-align: right;"> 0.0014</td><td style="text-align: right;">   -0  </td><td style="text-align: right;">    0.1</td></tr>
+<tr><td>p62_15 </td><td>t2     </td><td style="text-align: right;"> 0     </td><td style="text-align: right;">-0.0014</td><td style="text-align: right;">    0  </td><td style="text-align: right;">   -0.1</td></tr>
+<tr><td>p62_15 </td><td>t3     </td><td style="text-align: right;"> 0     </td><td style="text-align: right;">-0.0011</td><td style="text-align: right;">    0  </td><td style="text-align: right;">   -0.1</td></tr>
+<tr><td>p62_15 </td><td>t4     </td><td style="text-align: right;"> 0.0001</td><td style="text-align: right;">-0.0024</td><td style="text-align: right;">    0  </td><td style="text-align: right;">   -0.2</td></tr>
+<tr><td>p62_15 </td><td>t5     </td><td style="text-align: right;"> 0     </td><td style="text-align: right;">-0.0015</td><td style="text-align: right;">    0  </td><td style="text-align: right;">   -0.1</td></tr>
+<tr><td>p62_15 </td><td>t6     </td><td style="text-align: right;">-0     </td><td style="text-align: right;"> 0.0012</td><td style="text-align: right;">   -0  </td><td style="text-align: right;">    0.1</td></tr>
+<tr><td>p63_15 </td><td>20301  </td><td style="text-align: right;">-0.0008</td><td style="text-align: right;">-0.0006</td><td style="text-align: right;">   -0.1</td><td style="text-align: right;">   -0  </td></tr>
+<tr><td>p63_15 </td><td>20401  </td><td style="text-align: right;">-0.0026</td><td style="text-align: right;">-0.0004</td><td style="text-align: right;">   -0.2</td><td style="text-align: right;">   -0  </td></tr>
+<tr><td>p63_15 </td><td>30301  </td><td style="text-align: right;"> 0.0044</td><td style="text-align: right;">-0.0017</td><td style="text-align: right;">    0.3</td><td style="text-align: right;">   -0.1</td></tr>
+<tr><td>p63_15 </td><td>30401  </td><td style="text-align: right;"> 0.0021</td><td style="text-align: right;">-0.0025</td><td style="text-align: right;">    0.1</td><td style="text-align: right;">   -0.2</td></tr>
+<tr><td>p63_15 </td><td>40401  </td><td style="text-align: right;">-0.003 </td><td style="text-align: right;"> 0.0048</td><td style="text-align: right;">   -0.2</td><td style="text-align: right;">    0.3</td></tr>
+<tr><td>p63_15 </td><td>40501  </td><td style="text-align: right;"> 0.0001</td><td style="text-align: right;">-0.0034</td><td style="text-align: right;">    0  </td><td style="text-align: right;">   -0.2</td></tr>
+<tr><td>p63_15 </td><td>t1     </td><td style="text-align: right;"> 0     </td><td style="text-align: right;">-0.0014</td><td style="text-align: right;">    0  </td><td style="text-align: right;">   -0.1</td></tr>
+<tr><td>p63_15 </td><td>t2     </td><td style="text-align: right;">-0     </td><td style="text-align: right;"> 0.0014</td><td style="text-align: right;">   -0  </td><td style="text-align: right;">    0.1</td></tr>
+<tr><td>p63_15 </td><td>t3     </td><td style="text-align: right;">-0     </td><td style="text-align: right;"> 0.0011</td><td style="text-align: right;">   -0  </td><td style="text-align: right;">    0.1</td></tr>
+<tr><td>p63_15 </td><td>t4     </td><td style="text-align: right;">-0.0001</td><td style="text-align: right;"> 0.0024</td><td style="text-align: right;">   -0  </td><td style="text-align: right;">    0.2</td></tr>
+<tr><td>p63_15 </td><td>t5     </td><td style="text-align: right;">-0     </td><td style="text-align: right;"> 0.0015</td><td style="text-align: right;">   -0  </td><td style="text-align: right;">    0.1</td></tr>
+<tr><td>p63_15 </td><td>t6     </td><td style="text-align: right;"> 0     </td><td style="text-align: right;">-0.0012</td><td style="text-align: right;">    0  </td><td style="text-align: right;">   -0.1</td></tr>
+</tbody>
+</table>
+
 ====================== program stop =========================</br>
