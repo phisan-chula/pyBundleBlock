@@ -1,5 +1,4 @@
 #
-#
 PROG='''
 pyBundle.py : Perform bundle block adjustment computation using 'lmfit'
               The program benefits modern and convenient  pythonic paramdigm.
@@ -13,12 +12,12 @@ Author   : P.Santitamnont
 
 History  : 22 Feb 2022  Initial'''
 #
-#
 import pandas as pd
 import geopandas as gpd
 import yaml
 import numpy as np
 from lmfit import minimize, Minimizer, Parameters, report_fit
+from tabulate import tabulate
 import argparse
 #######################################################################
 def RotationMatrix(OmePhiKap, MODE=None):
@@ -64,7 +63,9 @@ class BundleBlock:
         minner = Minimizer( self.ColinFunc2min, self.Params )
         self.RESULT = minner.minimize( method='leastsq')
         self.dfOBS[['vx_mm','vy_mm']] = self.RESULT.residual.reshape(-1,2)
-        self.dfOBS[['vx_px','vy_px']] = self.dfOBS[['vx_mm','vy_mm']]/(self.YAML['Project']['ScanRes']/1000) 
+        self.dfOBS[['vx_px','vy_px']] =\
+                self.dfOBS[['vx_mm','vy_mm']]/(self.YAML['Project']['ScanRes']/1000) 
+
     def ColinFunc2min(self, Params):
         def getUnkParams( self, SYMBOL, SUFFIX ):
             par = list()
@@ -81,6 +82,7 @@ class BundleBlock:
             xp_,yp_ = self.World2Photo( EOP, XYZ_TP ) 
             residu.extend( [xp_-row.xp, yp_-row.yp ] )  # residual vector
         return residu   # model-data
+
     def World2Photo( self, EOP, XYZ_G ):
         ''' colinearity equation convert XYZ_G meter to photo xp_mm,yp_mm'''
         XG,YG,ZG = XYZ_G   ;  X0,Y0,Z0 = EOP[:3]
@@ -99,6 +101,8 @@ class BundleBlock:
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description=PROG)
     parser.add_argument('YAML', help='input photogrammetric bundle file in YAML format' )
+    parser.add_argument('-f','--format', default='pretty',
+            help='table formatting : "pretty", "github","html"' )
     args = parser.parse_args()
     print( PROG )
     print(f'Reading YAML "{args.YAML}" ...\n')
@@ -106,23 +110,29 @@ if __name__=="__main__":
     bb.DoAdjustment()
     #report_fit( bb.RESULT )     # lmfit provide convenient function to blow out 'RESULT'
     ##############################################################################
+    PAR = list()
     print( '====== Adjusted Parameters and Precision ======')
     for photo,grp in bb.dfOBS.groupby('Photo'):
-        for i in 'XYZOPK':     # Initital XYZ are sensitive, need 'good' initials
+        for i in 'XYZOPK': 
             UNK = bb.RESULT.params[ f'{photo}_{i}' ]
             if i in 'XYZ':
-                print( f'{UNK.name:10} {UNK.value:12.3f} m.     +/-{UNK.stderr:.3f} m.') 
+                PAR.append( [ f'{UNK.name:10}', f'{UNK.value:12.3f} m',
+                              f'+/-{UNK.stderr:.3f} m' ] ) 
             else:
-                print( f'{UNK.name:10} {np.degrees(UNK.value):12.6f} deg.'\
-                       f'   +/-{np.degrees(UNK.stderr)*3600:.0f} sec') 
+                PAR.append( [ f'{UNK.name:10}', f'{np.degrees(UNK.value):12.6f} deg',
+                       f'+/-{np.degrees(UNK.stderr)*3600:.0f} sec' ] ) 
     for tp,grp in bb.dfTPs.groupby('Pnt_Name'):
         for i in 'XYZ':
             UNK = bb.RESULT.params[ f'{tp}_{i}' ]
-            print(  f'{UNK.name:10} {UNK.value:12.3f} m.     +/-{UNK.stderr:.3f} m.' )
-    print( '====================== Reidual ===============================')
-    print( '--Photo--------Point-----vx_mm----vy_mm-----vx_px----vy_px---')
-    for i,row in  bb.dfOBS.sort_values(by=['Photo','Pnt_Name']).iterrows():
-        print( f'{row.Photo:12} {row.Pnt_Name:10}'\
-               f'{row.vx_mm:8.4f} {row.vy_mm:8.4f} {row.vx_px:8.1f} {row.vy_px:8.1f}' )
-    print( '====================== program stop =========================')
+            PAR.append( [ f'{UNK.name:10}', f'{UNK.value:12.3f} m.',
+                          f'+/-{UNK.stderr:.3f} m.' ] )
+    print( tabulate( PAR, ['Parameter','Value','Precision'], tablefmt=args.format ) )
     #import pdb; pdb.set_trace()
+    RES = list()
+    print( '====================== Residual ==============================')
+    for i,row in  bb.dfOBS.sort_values(by=['Photo','Pnt_Name']).iterrows():
+        RES.append( [ f'{row.Photo:12}', f'{row.Pnt_Name:10}', f'{row.vx_mm:8.4f}',
+                      f'{row.vy_mm:8.4f}', f'{row.vx_px:8.1f}',f'{row.vy_px:8.1f}' ] )
+    print( tabulate( RES, ['Photo','Point','vx_mm', 'vy_mm', 'vx_px', 'vy_px'], 
+                     tablefmt=args.format ) )
+    print( '====================== program stop =========================')
