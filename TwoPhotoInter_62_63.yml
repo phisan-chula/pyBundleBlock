@@ -1,0 +1,24 @@
+#
+# Photogrammetric two-photo intersection 
+# in YAML format
+# 
+Project:
+  Name   : Photogrammetric two-photo intersection
+  Camera :  Wild RC-30
+  FocLen : 154.006    # mm.
+  ScanRes :   15      # micron
+
+EOP:
+    Photo_62:
+        XYZ: [ 3709.1004,  2100.6322,  2258.6875 ]
+        OPK: [ 2.1947,   -0.4220,   -2.2214      ] # deg
+    Photo_63:
+        XYZ: [ 4907.812,  2088.579  ,  2257.266  ]
+        OPK: [ 2.42343 ,  -0.31138 ,  -1.78346   ] # deg
+
+Image:
+    Photo_62:    #Photo 62
+        T1 : [  -13.719 ,   73.461 ]
+
+    Photo_63:   # Photo 63
+        T1 : [ -104.822 ,  71.148 ]
