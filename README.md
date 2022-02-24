@@ -16,36 +16,44 @@ History  : 22 Feb 2022  Initial</br>
 Reading YAML "Block_62_63_6TP_TLE2020.yml" ...</br>
 </br>
 ====== Adjusted Parameters and Precision ======</br>
-p62_15_X       3708.694 m.     +/-0.178 m.</br>
-p62_15_Y       2100.753 m.     +/-0.131 m.</br>
-p62_15_Z       2258.511 m.     +/-0.059 m.</br>
-p62_15_O       2.195264 deg.   +/-12 sec</br>
-p62_15_P      -0.433633 deg.   +/-18 sec</br>
-p62_15_K      -2.216406 deg.   +/-4 sec</br>
-p63_15_X       4908.025 m.     +/-0.142 m.</br>
-p63_15_Y       2089.883 m.     +/-0.127 m.</br>
-p63_15_Z       2257.377 m.     +/-0.059 m.</br>
-p63_15_O       2.401673 deg.   +/-10 sec</br>
-p63_15_P      -0.309957 deg.   +/-14 sec</br>
-p63_15_K      -1.771746 deg.   +/-4 sec</br>
-t1_X           3881.968 m.     +/-0.037 m.</br>
-t1_Y           1486.194 m.     +/-0.043 m.</br>
-t1_Z            205.401 m.     +/-0.102 m.</br>
-t2_X           4199.238 m.     +/-0.030 m.</br>
-t2_Y           1737.682 m.     +/-0.036 m.</br>
-t2_Z            244.337 m.     +/-0.099 m.</br>
-t3_X           4442.124 m.     +/-0.032 m.</br>
-t3_Y           1628.696 m.     +/-0.039 m.</br>
-t3_Z            256.329 m.     +/-0.102 m.</br>
-t4_X           4273.925 m.     +/-0.030 m.</br>
-t4_Y           2111.272 m.     +/-0.032 m.</br>
-t4_Z            212.605 m.     +/-0.101 m.</br>
-t5_X           4129.183 m.     +/-0.031 m.</br>
-t5_Y           2192.276 m.     +/-0.032 m.</br>
-t5_Z            208.937 m.     +/-0.101 m.</br>
-t6_X           4083.629 m.     +/-0.033 m.</br>
-t6_Y           2591.675 m.     +/-0.040 m.</br>
-t6_Z            309.609 m.     +/-0.098 m.</br>
+<table>
+<thead>
+<tr><th>Parameter  </th><th>Value        </th><th>Precision  </th></tr>
+</thead>
+<tbody>
+<tr><td>p62_15_X   </td><td>3708.694 m   </td><td>+/-0.178 m </td></tr>
+<tr><td>p62_15_Y   </td><td>2100.753 m   </td><td>+/-0.131 m </td></tr>
+<tr><td>p62_15_Z   </td><td>2258.511 m   </td><td>+/-0.059 m </td></tr>
+<tr><td>p62_15_O   </td><td>2.195264 deg </td><td>+/-12 sec  </td></tr>
+<tr><td>p62_15_P   </td><td>-0.433633 deg</td><td>+/-18 sec  </td></tr>
+<tr><td>p62_15_K   </td><td>-2.216406 deg</td><td>+/-4 sec   </td></tr>
+<tr><td>p63_15_X   </td><td>4908.025 m   </td><td>+/-0.142 m </td></tr>
+<tr><td>p63_15_Y   </td><td>2089.883 m   </td><td>+/-0.127 m </td></tr>
+<tr><td>p63_15_Z   </td><td>2257.377 m   </td><td>+/-0.059 m </td></tr>
+<tr><td>p63_15_O   </td><td>2.401673 deg </td><td>+/-10 sec  </td></tr>
+<tr><td>p63_15_P   </td><td>-0.309957 deg</td><td>+/-14 sec  </td></tr>
+<tr><td>p63_15_K   </td><td>-1.771746 deg</td><td>+/-4 sec   </td></tr>
+<tr><td>t1_X       </td><td>3881.968 m.  </td><td>+/-0.037 m.</td></tr>
+<tr><td>t1_Y       </td><td>1486.194 m.  </td><td>+/-0.043 m.</td></tr>
+<tr><td>t1_Z       </td><td>205.401 m.   </td><td>+/-0.102 m.</td></tr>
+<tr><td>t2_X       </td><td>4199.238 m.  </td><td>+/-0.030 m.</td></tr>
+<tr><td>t2_Y       </td><td>1737.682 m.  </td><td>+/-0.036 m.</td></tr>
+<tr><td>t2_Z       </td><td>244.337 m.   </td><td>+/-0.099 m.</td></tr>
+<tr><td>t3_X       </td><td>4442.124 m.  </td><td>+/-0.032 m.</td></tr>
+<tr><td>t3_Y       </td><td>1628.696 m.  </td><td>+/-0.039 m.</td></tr>
+<tr><td>t3_Z       </td><td>256.329 m.   </td><td>+/-0.102 m.</td></tr>
+<tr><td>t4_X       </td><td>4273.925 m.  </td><td>+/-0.030 m.</td></tr>
+<tr><td>t4_Y       </td><td>2111.272 m.  </td><td>+/-0.032 m.</td></tr>
+<tr><td>t4_Z       </td><td>212.605 m.   </td><td>+/-0.101 m.</td></tr>
+<tr><td>t5_X       </td><td>4129.183 m.  </td><td>+/-0.031 m.</td></tr>
+<tr><td>t5_Y       </td><td>2192.276 m.  </td><td>+/-0.032 m.</td></tr>
+<tr><td>t5_Z       </td><td>208.937 m.   </td><td>+/-0.101 m.</td></tr>
+<tr><td>t6_X       </td><td>4083.629 m.  </td><td>+/-0.033 m.</td></tr>
+<tr><td>t6_Y       </td><td>2591.675 m.  </td><td>+/-0.040 m.</td></tr>
+<tr><td>t6_Z       </td><td>309.609 m.   </td><td>+/-0.098 m.</td></tr>
+</tbody>
+</table>
+
 ====================== Reidual ===============================</br>
 --Photo--------Point-----vx_mm----vy_mm-----vx_px----vy_px---</br>
 p62_15       20301       0.0002  -0.0004      0.0     -0.0</br>
