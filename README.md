@@ -1,18 +1,19 @@
 # pyBundleBlock
 
-pyBundle.py : Perform bundle block adjustment computation using 'lmfit'</br>
-              The program benefits modern and convenient  pythonic paramdigm.</br>
-              It incoperates Lmfit for least square adjustment computations</br>
-              and solve non-linear bundle block problem with Levenberg-</br>
-              Marquardt algorithm (LMA). The damped iterative solution can</br>
-              result which may be more robust than the traditional Gauss-Markov</br>
-              solution.</br>
+pyBundleBlock.py : Perform bundle block adjustment computation using 'lmfit'</br>
+        The program benefits modern and convenient  pythonic paramdigm.</br>
+        It incoperates Lmfit for least square adjustment computations</br>
+        and solve non-linear bundle block problem with Levenberg-</br>
+        Marquardt algorithm (LMA). The damped iterative solution can</br>
+        result which may be more robust than the traditional Gauss-Markov</br>
+        solution.</br>
 Author   : P.Santitamnont</br>
            Faculty of Engineering, Chulalongkorn University, Bangkok, Thailand</br>
 </br>
 History  : 22 Feb 2022  Initial</br>
 </br>
 </br>
+<H1>Example Result</H1>
 Reading YAML "Block_62_63_6TP_TLE2020.yml" ...</br>
 </br>
 ====== Adjusted Parameters and Precision ======</br>
