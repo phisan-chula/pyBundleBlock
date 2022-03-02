@@ -73,20 +73,20 @@ class BundleBlock:
             return  # already 'mm'
         self.dfPho = pd.DataFrame( pho_coord,
                          columns=['Photo', 'Pnt_Name', 'jx_px', 'iy_px' ] )
-        assert( self.YAML['Project']['UNIT_IOP']=='mm2px' )
-        def PX2MM( row, YAML ):
-            KMAT = np.matrix(YAML['IOP'][row.Photo])
-            UNIT = YAML['Project']['UNIT_IOP']
+        if self.YAML['Project']['UNIT_IOP']=='mm2px':
+            for photo,kmat in self.YAML['IOP'].items():
+                self.YAML['IOP'][photo] = np.matrix(kmat).I
+        elif self.YAML['Project']['UNIT_IOP']=='px2mm':
+            for photo,kmat in self.YAML['IOP'].items():
+                self.YAML['IOP'][photo] = np.matrix(kmat)
+        else:
+            raise f'***ERROR*** unkonwn UNIT_IOP {self.YAML}'
+        def PX2MM( row, K_Mats ):
             #import pdb; pdb.set_trace()
-            if   UNIT=='mm2px':  # inverse!
-                xpyp = KMAT.I*np.matrix( [row.jx_px,row.iy_px,1] ).T
-            elif UNIT=='px2mm':  # straight!
-                xpyp = KMAT  *np.matrix( [row.jx_px,row.iy_px,1] ).T
-            else:
-                raise f'***ERROR*** unkonwn UNIT_IOP {UNIT}'
+            xpyp = K_Mats[row.Photo]*np.matrix( [row.jx_px,row.iy_px,1] ).T
             return pd.Series( [ xpyp[0,0],xpyp[1,0] ]  )
         self.dfPho[['xp_mm','yp_mm']] = self.dfPho.apply( PX2MM, axis=1, 
-                                              args=( self.YAML, )  )
+                                         args=( self.YAML['IOP'],)  )
         self.dfPho[['xp_mm','yp_mm']] = self.dfPho[['xp_mm','yp_mm']].round(4) 
 
     def DoAdjustment(self):
