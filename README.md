@@ -13,8 +13,8 @@ Author   : P.Santitamnont</br>
 History  : 22 Feb 2022  Initial</br>
 </br>
 </br>
-Example Result</br>
-Reading YAML "Block_62_63_6TP_TLE2020px.yml" ...</br>
+Example Result
+Reading YAML "Block_62_63_6TP_TLE2020px.yml" ...
 
 ==================== Input Measurement ====================
      Photo Pnt_Name    jx_px    iy_px     xp_mm    yp_mm
