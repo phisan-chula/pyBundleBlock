@@ -46,16 +46,15 @@ class BundleBlock:
                 pho_coord.append( [ str(photo), str(pnt), xp, yp ] )
         ###########################################################
         self.InteriorOrient( pho_coord )
-        print('==================== Input Measurement ====================')
-        print( self.dfPho )
+        print(28*'='+'Input Measurement'+28*'=')
+        print( self.dfPho.to_markdown() )
         ###########################################################
         self.dfMEAS = self.dfPho.merge( dfGCP,how='inner', left_on='Pnt_Name', 
                                       right_on='GCP_Name', copy =True )
-        #import pdb; pdb.set_trace() 
         print('==================== Input GCPs ====================')
         print( pd.unique(dfGCP.GCP_Name) )
         print('=================== Used GCPs ====================')
-        print( pd.unique(self.dfMEAS.GCP_Name) )
+        print( pd.unique(self.dfMEAS.GCP_Name) ) 
         print('====================================================')
         onGCP = pd.notna(self.dfMEAS.GCP_Name)
         print(60*'=')
@@ -140,8 +139,6 @@ class BundleBlock:
 if __name__=="__main__":
     parser = argparse.ArgumentParser(description=PROG)
     parser.add_argument('YAML', help='input photogrammetric bundle file in YAML format' )
-    parser.add_argument('-f','--format', default='pretty',
-            help='table formatting : "pretty", "github","html"' )
     args = parser.parse_args()
     print( PROG )
     print(f'Reading YAML "{args.YAML}" ...\n')
@@ -165,7 +162,7 @@ if __name__=="__main__":
             UNK = bb.RESULT.params[ f'{tp}_{i}' ]
             PAR.append( [ f'{UNK.name:10}', f'{UNK.value:12.3f} m.',
                           f'+/-{UNK.stderr:.3f} m.' ] )
-    print( tabulate( PAR, ['Parameter','Value','Precision'], tablefmt=args.format ) )
+    print( tabulate( PAR, ['Parameter','Value','Precision'], tablefmt='github' ) )
     #import pdb; pdb.set_trace()
     RES = list()
     print( '====================== Residual ==============================')
@@ -173,5 +170,5 @@ if __name__=="__main__":
         RES.append( [ f'{row.Photo:12}', f'{row.Pnt_Name:10}', f'{row.vx_mm:+8.4f}',
                       f'{row.vy_mm:+8.4f}', f'{row.vx_px:+8.1f}',f'{row.vy_px:+8.1f}' ] )
     print( tabulate( RES, ['Photo','Point','vx_mm', 'vy_mm', 'vx_px', 'vy_px'], 
-                     tablefmt=args.format ) )
+                     tablefmt='github' ) )
     print( '====================== program stop =========================')
