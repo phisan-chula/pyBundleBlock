@@ -10,7 +10,8 @@ pyBundle.py : Perform bundle block adjustment computation using 'lmfit'
 Author   : P.Santitamnont
            Faculty of Engineering, Chulalongkorn University, Bangkok, Thailand
 
-History  : 22 Feb 2022  Initial'''
+History  : 22 Feb 2022  Initial
+           1  Mar 2022  Observation in pixel via IOP K Matrix'''
 #
 import pandas as pd
 import geopandas as gpd
@@ -33,7 +34,7 @@ def RotationMatrix(OmePhiKap, MODE=None):
 #######################################################################
 class BundleBlock:
     def __init__( self , YAML ):
-        ''' read YAML and restructure to dfOBS '''
+        ''' read YAML and restructure to dfMEAS '''
         with open( YAML, 'r' ) as f:
             self.YAML = yaml.safe_load(f)
         gcps = list() ; pho_coord = list()
@@ -43,13 +44,51 @@ class BundleBlock:
         for photo,data in self.YAML['Image'].items():
             for pnt,(xp,yp) in data.items():
                 pho_coord.append( [ str(photo), str(pnt), xp, yp ] )
-        dfPho = pd.DataFrame( pho_coord, columns= ['Photo', 'Pnt_Name', 'xp', 'yp' ] )
-        self.dfOBS = dfPho.merge( dfGCP,how='outer', left_on='Pnt_Name', right_on='GCP_Name', copy =True )
-        onGCP = pd.notna(self.dfOBS.GCP_Name)
-        self.dfGCPs = self.dfOBS[  onGCP ].copy()
-        self.dfTPs  = self.dfOBS[ ~onGCP ].copy()
+        ###########################################################
+        self.InteriorOrient( pho_coord )
+        print('==================== Input Measurement ====================')
+        print( self.dfPho )
+        ###########################################################
+        self.dfMEAS = self.dfPho.merge( dfGCP,how='inner', left_on='Pnt_Name', 
+                                      right_on='GCP_Name', copy =True )
+        #import pdb; pdb.set_trace() 
+        print('==================== Input GCPs ====================')
+        print( pd.unique(dfGCP.GCP_Name) )
+        print('=================== Used GCPs ====================')
+        print( pd.unique(self.dfMEAS.GCP_Name) )
+        print('====================================================')
+        onGCP = pd.notna(self.dfMEAS.GCP_Name)
+        print(60*'=')
+        self.dfGCPs = self.dfMEAS[  onGCP ].copy()
+        self.dfTPs  = self.dfMEAS[ ~onGCP ].copy()
         for tp,grp in self.dfTPs.groupby('Pnt_Name'):
-            if len(grp)<=1: raise f'***ERROR*** TP "{tp}" measured once on "{grp.iloc[0].Photo}"'
+            if len(grp)<=1: raise f'***ERROR*** TP "{tp}" measured once on'\
+                                  f' "{grp.iloc[0].Photo}"'
+
+    def InteriorOrient(self, pho_coord):
+        #import pdb; pdb.set_trace()
+        if 'UNIT_IOP' not in self.YAML['Project'].keys():  # already 'mm'
+            self.dfPho = pd.DataFrame( pho_coord, 
+                         columns=['Photo', 'Pnt_Name', 'xp_mm', 'yp_mm' ] )
+            return  # already 'mm'
+        self.dfPho = pd.DataFrame( pho_coord,
+                         columns=['Photo', 'Pnt_Name', 'jx_px', 'iy_px' ] )
+        assert( self.YAML['Project']['UNIT_IOP']=='mm2px' )
+        def PX2MM( row, YAML ):
+            KMAT = np.matrix(YAML['IOP'][row.Photo])
+            UNIT = YAML['Project']['UNIT_IOP']
+            #import pdb; pdb.set_trace()
+            if   UNIT=='mm2px':  # inverse!
+                xpyp = KMAT.I*np.matrix( [row.jx_px,row.iy_px,1] ).T
+            elif UNIT=='px2mm':  # straight!
+                xpyp = KMAT  *np.matrix( [row.jx_px,row.iy_px,1] ).T
+            else:
+                raise f'***ERROR*** unkonwn UNIT_IOP {UNIT}'
+            return pd.Series( [ xpyp[0,0],xpyp[1,0] ]  )
+        self.dfPho[['xp_mm','yp_mm']] = self.dfPho.apply( PX2MM, axis=1, 
+                                              args=( self.YAML, )  )
+        self.dfPho[['xp_mm','yp_mm']] = self.dfPho[['xp_mm','yp_mm']].round(4) 
+
     def DoAdjustment(self):
         self.Params = Parameters()
         for photo,grp in  self.dfGCPs.groupby('Photo'):
@@ -62,9 +101,9 @@ class BundleBlock:
                 self.Params.add( f'{tp}_{i}', value=INIT )
         minner = Minimizer( self.ColinFunc2min, self.Params )
         self.RESULT = minner.minimize( method='leastsq')
-        self.dfOBS[['vx_mm','vy_mm']] = self.RESULT.residual.reshape(-1,2)
-        self.dfOBS[['vx_px','vy_px']] =\
-                self.dfOBS[['vx_mm','vy_mm']]/(self.YAML['Project']['ScanRes']/1000) 
+        self.dfMEAS[['vx_mm','vy_mm']] = self.RESULT.residual.reshape(-1,2)
+        self.dfMEAS[['vx_px','vy_px']] =\
+                self.dfMEAS[['vx_mm','vy_mm']]/(self.YAML['Project']['ScanRes']/1000) 
 
     def ColinFunc2min(self, Params):
         def getUnkParams( self, SYMBOL, SUFFIX ):
@@ -75,12 +114,12 @@ class BundleBlock:
         for i,row in  self.dfGCPs.iterrows():
             EOP = getUnkParams( Params, row.Photo, 'XYZOPK' )
             xp_,yp_ = self.World2Photo( EOP, [row.X,row.Y,row.Z] )
-            residu.extend( [xp_-row.xp, yp_-row.yp ] )  # residual vector
+            residu.extend( [xp_-row.xp_mm, yp_-row.yp_mm ] )  # residual vector
         for i,row in  self.dfTPs.iterrows():
             EOP    = getUnkParams( Params, row.Photo, 'XYZOPK' )
             XYZ_TP = getUnkParams( Params, row.Pnt_Name, 'XYZ' )
             xp_,yp_ = self.World2Photo( EOP, XYZ_TP ) 
-            residu.extend( [xp_-row.xp, yp_-row.yp ] )  # residual vector
+            residu.extend( [xp_-row.xp_mm, yp_-row.yp_mm ] )  # residual vector
         return residu   # model-data
 
     def World2Photo( self, EOP, XYZ_G ):
@@ -93,9 +132,9 @@ class BundleBlock:
         #xp = self.x0 - self.FocLen*nom_xp/denom
         #yp = self.y0 - self.FocLen*nom_yp/denom
         f = self.YAML['Project']['FocLen']  # mm
-        xp = 0 - f*nom_xp/denom
-        yp = 0 - f*nom_yp/denom
-        return (xp,yp)
+        xp_mm = 0 - f*nom_xp/denom
+        yp_mm = 0 - f*nom_yp/denom
+        return (xp_mm,yp_mm)
 
 ##############################################################################
 if __name__=="__main__":
@@ -112,7 +151,7 @@ if __name__=="__main__":
     ##############################################################################
     PAR = list()
     print( '====== Adjusted Parameters and Precision ======')
-    for photo,grp in bb.dfOBS.groupby('Photo'):
+    for photo,grp in bb.dfMEAS.groupby('Photo'):
         for i in 'XYZOPK': 
             UNK = bb.RESULT.params[ f'{photo}_{i}' ]
             if i in 'XYZ':
@@ -130,9 +169,9 @@ if __name__=="__main__":
     #import pdb; pdb.set_trace()
     RES = list()
     print( '====================== Residual ==============================')
-    for i,row in  bb.dfOBS.sort_values(by=['Photo','Pnt_Name']).iterrows():
-        RES.append( [ f'{row.Photo:12}', f'{row.Pnt_Name:10}', f'{row.vx_mm:8.4f}',
-                      f'{row.vy_mm:8.4f}', f'{row.vx_px:8.1f}',f'{row.vy_px:8.1f}' ] )
+    for i,row in  bb.dfMEAS.sort_values(by=['Photo','Pnt_Name']).iterrows():
+        RES.append( [ f'{row.Photo:12}', f'{row.Pnt_Name:10}', f'{row.vx_mm:+8.4f}',
+                      f'{row.vy_mm:+8.4f}', f'{row.vx_px:+8.1f}',f'{row.vy_px:+8.1f}' ] )
     print( tabulate( RES, ['Photo','Point','vx_mm', 'vy_mm', 'vx_px', 'vy_px'], 
                      tablefmt=args.format ) )
     print( '====================== program stop =========================')
