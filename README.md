@@ -15,7 +15,7 @@ History  : 22 Feb 2022  Initial</br>
 </br>
 Example Result
 Reading YAML "Block_62_63_6TP_TLE2020px.yml" ...
-==================== Input Measurement ====================
+============================Input Measurement============================
 |    | Photo   | Pnt_Name   |   jx_px |    iy_px |     xp_mm |    yp_mm |
 |---:|:--------|:-----------|--------:|---------:|----------:|---------:|
 |  0 | P62_15  | 40401      |  9840.1 |  -2376.6 |   34.2148 |  77.8308 |
@@ -43,50 +43,35 @@ Reading YAML "Block_62_63_6TP_TLE2020px.yml" ...
 | 22 | P63_15  | t5         |  3600.8 |  -7601.3 |  -59.4484 |  -0.6008 |
 | 23 | P63_15  | t6         |  3130.3 |  -5503.1 |  -66.5119 |  30.8966 |
 
-==================== Input GCPs ====================
-['40401' '40501' '30301' '30401' '20301' '20401']
-=================== Used GCPs ====================
-['40401' '40501' '30301' '30401' '20301' '20401']
-====================================================
-============================================================
+
 ====== Adjusted Parameters and Precision ======
-<table>
-<thead>
-<tr><th>Parameter  </th><th>Value        </th><th>Precision  </th></tr>
-</thead>
-<tbody>
-<tr><td>P62_15_X   </td><td>3708.724 m   </td><td>+/-0.171 m </td></tr>
-<tr><td>P62_15_Y   </td><td>2100.812 m   </td><td>+/-0.133 m </td></tr>
-<tr><td>P62_15_Z   </td><td>2258.521 m   </td><td>+/-0.058 m </td></tr>
-<tr><td>P62_15_O   </td><td>2.194102 deg </td><td>+/-12 sec  </td></tr>
-<tr><td>P62_15_P   </td><td>-0.432875 deg</td><td>+/-17 sec  </td></tr>
-<tr><td>P62_15_K   </td><td>-2.216435 deg</td><td>+/-3 sec   </td></tr>
-<tr><td>P63_15_X   </td><td>4908.014 m   </td><td>+/-0.137 m </td></tr>
-<tr><td>P63_15_Y   </td><td>2089.745 m   </td><td>+/-0.138 m </td></tr>
-<tr><td>P63_15_Z   </td><td>2257.388 m   </td><td>+/-0.057 m </td></tr>
-<tr><td>P63_15_O   </td><td>2.404430 deg </td><td>+/-11 sec  </td></tr>
-<tr><td>P63_15_P   </td><td>-0.310290 deg</td><td>+/-13 sec  </td></tr>
-<tr><td>P63_15_K   </td><td>-1.772814 deg</td><td>+/-4 sec   </td></tr>
-</tbody>
-</table>
+| Parameter   | Value         | Precision   |
+|-------------|---------------|-------------|
+| P62_15_X    | 3708.724 m    | +/-0.171 m  |
+| P62_15_Y    | 2100.812 m    | +/-0.133 m  |
+| P62_15_Z    | 2258.521 m    | +/-0.058 m  |
+| P62_15_O    | 2.194102 deg  | +/-12 sec   |
+| P62_15_P    | -0.432875 deg | +/-17 sec   |
+| P62_15_K    | -2.216435 deg | +/-3 sec    |
+| P63_15_X    | 4908.014 m    | +/-0.137 m  |
+| P63_15_Y    | 2089.745 m    | +/-0.138 m  |
+| P63_15_Z    | 2257.388 m    | +/-0.057 m  |
+| P63_15_O    | 2.404430 deg  | +/-11 sec   |
+| P63_15_P    | -0.310290 deg | +/-13 sec   |
+| P63_15_K    | -1.772814 deg | +/-4 sec    |
 ====================== Residual ==============================
-<table>
-<thead>
-<tr><th>Photo  </th><th style="text-align: right;">     Point</th><th style="text-align: right;">  vx_mm</th><th style="text-align: right;">  vy_mm</th><th style="text-align: right;">  vx_px</th><th style="text-align: right;">  vy_px</th></tr>
-</thead>
-<tbody>
-<tr><td>P62_15 </td><td style="text-align: right;">20301     </td><td style="text-align: right;"> 0.0001</td><td style="text-align: right;">-0.0005</td><td style="text-align: right;">    0  </td><td style="text-align: right;">   -0  </td></tr>
-<tr><td>P62_15 </td><td style="text-align: right;">20401     </td><td style="text-align: right;"> 0.0003</td><td style="text-align: right;"> 0.0008</td><td style="text-align: right;">    0  </td><td style="text-align: right;">    0.1</td></tr>
-<tr><td>P62_15 </td><td style="text-align: right;">30301     </td><td style="text-align: right;"> 0.0002</td><td style="text-align: right;"> 0.0015</td><td style="text-align: right;">    0  </td><td style="text-align: right;">    0.1</td></tr>
-<tr><td>P62_15 </td><td style="text-align: right;">30401     </td><td style="text-align: right;"> 0.001 </td><td style="text-align: right;">-0.0015</td><td style="text-align: right;">    0.1</td><td style="text-align: right;">   -0.1</td></tr>
-<tr><td>P62_15 </td><td style="text-align: right;">40401     </td><td style="text-align: right;">-0.0033</td><td style="text-align: right;"> 0.0017</td><td style="text-align: right;">   -0.2</td><td style="text-align: right;">    0.1</td></tr>
-<tr><td>P62_15 </td><td style="text-align: right;">40501     </td><td style="text-align: right;"> 0.0016</td><td style="text-align: right;">-0.002 </td><td style="text-align: right;">    0.1</td><td style="text-align: right;">   -0.1</td></tr>
-<tr><td>P63_15 </td><td style="text-align: right;">20301     </td><td style="text-align: right;">-0.0009</td><td style="text-align: right;">-0.0009</td><td style="text-align: right;">   -0.1</td><td style="text-align: right;">   -0.1</td></tr>
-<tr><td>P63_15 </td><td style="text-align: right;">20401     </td><td style="text-align: right;">-0.0017</td><td style="text-align: right;">-0.0003</td><td style="text-align: right;">   -0.1</td><td style="text-align: right;">   -0  </td></tr>
-<tr><td>P63_15 </td><td style="text-align: right;">30301     </td><td style="text-align: right;"> 0.0039</td><td style="text-align: right;">-0.0005</td><td style="text-align: right;">    0.3</td><td style="text-align: right;">   -0  </td></tr>
-<tr><td>P63_15 </td><td style="text-align: right;">30401     </td><td style="text-align: right;"> 0.0023</td><td style="text-align: right;"> 0.0001</td><td style="text-align: right;">    0.2</td><td style="text-align: right;">    0  </td></tr>
-<tr><td>P63_15 </td><td style="text-align: right;">40401     </td><td style="text-align: right;">-0.0022</td><td style="text-align: right;"> 0.0046</td><td style="text-align: right;">   -0.1</td><td style="text-align: right;">    0.3</td></tr>
-<tr><td>P63_15 </td><td style="text-align: right;">40501     </td><td style="text-align: right;">-0.0012</td><td style="text-align: right;">-0.0031</td><td style="text-align: right;">   -0.1</td><td style="text-align: right;">   -0.2</td></tr>
-</tbody>
-</table>
+| Photo   |      Point |   vx_mm |   vy_mm |   vx_px |   vy_px |
+|---------|------------|---------|---------|---------|---------|
+| P62_15  | 20301      |  0.0001 | -0.0005 |     0   |    -0   |
+| P62_15  | 20401      |  0.0003 |  0.0008 |     0   |     0.1 |
+| P62_15  | 30301      |  0.0002 |  0.0015 |     0   |     0.1 |
+| P62_15  | 30401      |  0.001  | -0.0015 |     0.1 |    -0.1 |
+| P62_15  | 40401      | -0.0033 |  0.0017 |    -0.2 |     0.1 |
+| P62_15  | 40501      |  0.0016 | -0.002  |     0.1 |    -0.1 |
+| P63_15  | 20301      | -0.0009 | -0.0009 |    -0.1 |    -0.1 |
+| P63_15  | 20401      | -0.0017 | -0.0003 |    -0.1 |    -0   |
+| P63_15  | 30301      |  0.0039 | -0.0005 |     0.3 |    -0   |
+| P63_15  | 30401      |  0.0023 |  0.0001 |     0.2 |     0   |
+| P63_15  | 40401      | -0.0022 |  0.0046 |    -0.1 |     0.3 |
+| P63_15  | 40501      | -0.0012 | -0.0031 |    -0.1 |    -0.2 |
 ====================== program stop =========================
