@@ -13,7 +13,7 @@ Author   : P.Santitamnont</br>
 History  : 22 Feb 2022  Initial</br>
 </br>
 </br>
-<p> Example Result
+Example Result
 Reading YAML "Block_62_63_6TP_TLE2020px.yml" ...
 
 ==================== Input Measurement ====================
