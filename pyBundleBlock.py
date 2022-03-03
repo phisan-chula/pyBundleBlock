@@ -37,6 +37,9 @@ class BundleBlock:
         ''' read YAML and restructure to dfMEAS '''
         with open( YAML, 'r' ) as f:
             self.YAML = yaml.safe_load(f)
+        #import pdb; pdb.set_trace()
+        if 'GCP' not in self.YAML.keys(): 
+            raise RuntimeError('***ERROR "no GCP in BundleBlock" YAML!!!')
         gcps = list() ; pho_coord = list()
         for k,(X,Y,Z) in self.YAML['GCP'].items():
             gcps.append( [ str(k),X,Y,Z ] )
@@ -49,15 +52,13 @@ class BundleBlock:
         print(28*'='+'Input Measurement'+28*'=')
         print( self.dfPho.to_markdown() )
         ###########################################################
-        self.dfMEAS = self.dfPho.merge( dfGCP,how='inner', left_on='Pnt_Name', 
+        self.dfMEAS = self.dfPho.merge( dfGCP,how='left', left_on='Pnt_Name', 
                                       right_on='GCP_Name', copy =True )
-        print('==================== Input GCPs ====================')
+        print('\n==================== Input GCPs ====================')
         print( pd.unique(dfGCP.GCP_Name) )
-        print('=================== Used GCPs ====================')
+        print('\n=================== Used GCPs ====================')
         print( pd.unique(self.dfMEAS.GCP_Name) ) 
-        print('====================================================')
         onGCP = pd.notna(self.dfMEAS.GCP_Name)
-        print(60*'=')
         self.dfGCPs = self.dfMEAS[  onGCP ].copy()
         self.dfTPs  = self.dfMEAS[ ~onGCP ].copy()
         for tp,grp in self.dfTPs.groupby('Pnt_Name'):
@@ -65,7 +66,6 @@ class BundleBlock:
                                   f' "{grp.iloc[0].Photo}"'
 
     def InteriorOrient(self, pho_coord):
-        #import pdb; pdb.set_trace()
         if 'UNIT_IOP' not in self.YAML['Project'].keys():  # already 'mm'
             self.dfPho = pd.DataFrame( pho_coord, 
                          columns=['Photo', 'Pnt_Name', 'xp_mm', 'yp_mm' ] )
@@ -81,7 +81,6 @@ class BundleBlock:
         else:
             raise f'***ERROR*** unkonwn UNIT_IOP {self.YAML}'
         def PX2MM( row, K_Mats ):
-            #import pdb; pdb.set_trace()
             xpyp = K_Mats[row.Photo]*np.matrix( [row.jx_px,row.iy_px,1] ).T
             return pd.Series( [ xpyp[0,0],xpyp[1,0] ]  )
         self.dfPho[['xp_mm','yp_mm']] = self.dfPho.apply( PX2MM, axis=1, 
@@ -147,12 +146,12 @@ if __name__=="__main__":
     #report_fit( bb.RESULT )     # lmfit provide convenient function to blow out 'RESULT'
     ##############################################################################
     PAR = list()
-    print( '====== Adjusted Parameters and Precision ======')
+    print( '\n====== Adjusted Parameters and Precision =====\n')
     for photo,grp in bb.dfMEAS.groupby('Photo'):
         for i in 'XYZOPK': 
             UNK = bb.RESULT.params[ f'{photo}_{i}' ]
             if i in 'XYZ':
-                PAR.append( [ f'{UNK.name:10}', f'{UNK.value:12.3f} m',
+                PAR.append( [ f'{UNK.name:10}', f'{UNK.value:12,.3f} m',
                               f'+/-{UNK.stderr:.3f} m' ] ) 
             else:
                 PAR.append( [ f'{UNK.name:10}', f'{np.degrees(UNK.value):12.6f} deg',
@@ -160,15 +159,15 @@ if __name__=="__main__":
     for tp,grp in bb.dfTPs.groupby('Pnt_Name'):
         for i in 'XYZ':
             UNK = bb.RESULT.params[ f'{tp}_{i}' ]
-            PAR.append( [ f'{UNK.name:10}', f'{UNK.value:12.3f} m.',
-                          f'+/-{UNK.stderr:.3f} m.' ] )
-    print( tabulate( PAR, ['Parameter','Value','Precision'], tablefmt='github' ) )
-    #import pdb; pdb.set_trace()
+            PAR.append( [ f'{UNK.name:10}', f'{UNK.value:12,.3f} m',
+                          f'+/-{UNK.stderr:.3f} m' ] )
+    print( tabulate( PAR, ['Parameter','Value','Precision'], 
+                            tablefmt='github', stralign="right" ) )
     RES = list()
-    print( '====================== Residual ==============================')
+    print( '\n====================== Residual =============================\n')
     for i,row in  bb.dfMEAS.sort_values(by=['Photo','Pnt_Name']).iterrows():
         RES.append( [ f'{row.Photo:12}', f'{row.Pnt_Name:10}', f'{row.vx_mm:+8.4f}',
                       f'{row.vy_mm:+8.4f}', f'{row.vx_px:+8.1f}',f'{row.vy_px:+8.1f}' ] )
     print( tabulate( RES, ['Photo','Point','vx_mm', 'vy_mm', 'vx_px', 'vy_px'], 
                      tablefmt='github' ) )
-    print( '====================== program stop =========================')
+    print( '\n====================== program stop =========================\n')

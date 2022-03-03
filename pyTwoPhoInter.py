@@ -26,6 +26,9 @@ class TwoPhotoInter(BundleBlock):
         ''' read YAML and restructure to dfOBS '''
         with open( YAML, 'r' ) as f:
             self.YAML = yaml.safe_load(f)
+        #import pdb; pdb.set_trace()
+        if 'EOP' not in  self.YAML.keys():
+            raise RuntimeError('***ERROR no "EOP in TwoPhotoIntersection" YAML!!!')
         eops = list() ; pho_coord = list()
         for photo,eop in self.YAML['EOP'].items():
             eops.append( [ str(photo), eop['XYZ'], eop['OPK'] ] )
