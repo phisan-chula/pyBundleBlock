@@ -7,13 +7,14 @@ pyBundleBlock.py : Perform bundle block adjustment computation using 'lmfit'</br
         Marquardt algorithm (LMA). The damped iterative solution can</br>
         result which may be more robust than the traditional Gauss-Markov</br>
         solution. The input parameter and data are code in YAML</br>
+</br>
 pyTwoPhotoInter.py : Perform intersection of an unknown ground point (X,Y,Z)</br>
         User identifies two homologous points on photos and measure their </br>
         coordinates. The pyTwoPhotoInter.py will computer XYZ ground point,</br>
         given the two photo have its own exterior orientation (EOP). </br>
         The input parameter and data are code in YAML as show in example
         TwoPhotoInter.yaml</br>
-        
+</br>        
 Author   : P.Santitamnont</br>
            Faculty of Engineering, Chulalongkorn University, Bangkok, Thailand</br>
 </br>
